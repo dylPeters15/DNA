@@ -1,0 +1,42 @@
+clear;
+format short e;
+
+%%changing n
+n = 1e7:1e7:1e8;
+time = [0.046,0.074,0.129,0.157,0.223,0.299,0.276,0.392,0.426,0.450];%[0.009,0.009,0.009,0.008,0.009,0.009,0.009,0.008,0.008,0.008];
+figure(1);
+clf;
+plot(n,time,'b');
+axis([-inf,inf,0,0.5]);
+title('Runtime as a Function of Number of Nucleotides (n) For Linked List');
+xlabel('Number of Nucleotides (n)');
+ylabel('Runtime (seconds)');
+hold on;
+p = polyfit(n,time,1);
+xhat = min(n):1000000:max(n);
+yhat = polyval(p,xhat);
+plot(xhat,yhat,'k');
+hold off;
+print -depsc changingnLinkedList;
+disp('Changing n: ');
+A=['t=',num2str(p(1)),'n+',num2str(p(2))];
+disp(A);
+
+B = 1e4:1e4:1e5;
+time = [0.005,0.008,0.008,0.010,0.011,0.012,0.012,0.013,0.013,0.014];
+figure(2);
+clf;
+plot(B,time,'b');
+title('Runtime as a Function of Number of Enzyme Matches (B) For Linked List');
+xlabel('Number of Nucleotide Matches (B)');
+ylabel('Runtime (seconds)');
+hold on;
+p = polyfit(B,time,1);
+xhat = min(B):10000:max(B);
+yhat = polyval(p,xhat);
+plot(xhat,yhat,'k');
+hold off;
+print -depsc changingBLinkedList;
+disp('Changing B: ');
+A=['t=',num2str(p(1)),'B+',num2str(p(2))];
+disp(A);

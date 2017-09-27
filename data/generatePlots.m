@@ -1,0 +1,42 @@
+clear;
+format short e;
+
+%%changing n
+n = 1e5:1e5:1e6;
+time = [0.111,0.098,0.119,0.121,0.154,0.183,0.193,0.265,0.270,0.283];%[0.009,0.009,0.009,0.008,0.009,0.009,0.009,0.008,0.008,0.008];
+figure(1);
+clf;
+plot(n,time,'b');
+axis([-inf,inf,0,0.5]);
+title('Runtime as a Function of Number of Nucleotides (n)');
+xlabel('Number of Nucleotides (n)');
+ylabel('Runtime (seconds)');
+hold on;
+p = polyfit(n,time,1);
+xhat = min(n):100000:max(n);
+yhat = polyval(p,xhat);
+plot(xhat,yhat,'k');
+hold off;
+print -depsc changingn;
+disp('Changing n: ');
+A=['t=',num2str(p(1)),'n+',num2str(p(2))];
+disp(A);
+
+B = 1e7:1e7:1e8;
+time = [0.008,0.014,0.03,0.026,0.028,0.0290,0.049,0.048,0.052,0.051];
+figure(2);
+clf;
+plot(B,time,'b');
+title('Runtime as a Function of Number of Enzyme Matches (B)');
+xlabel('Number of Nucleotide Matches (B)');
+ylabel('Runtime (seconds)');
+hold on;
+p = polyfit(B,time,1);
+xhat = min(B):10000:max(B);
+yhat = polyval(p,xhat);
+plot(xhat,yhat,'k');
+hold off;
+print -depsc changingB;
+disp('Changing B: ');
+A=['t=',num2str(p(1)),'B+',num2str(p(2))];
+disp(A);
